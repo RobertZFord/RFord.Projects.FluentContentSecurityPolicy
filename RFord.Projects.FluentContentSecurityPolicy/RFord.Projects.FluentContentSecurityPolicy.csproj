@@ -11,13 +11,13 @@
     <Description>A simple fluent builder for CSP headers</Description>
     <PackageProjectUrl>https://github.com/RobertZFord/RFord.Projects.FluentContentSecurityPolicy</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RobertZFord/RFord.Projects.FluentContentSecurityPolicy</RepositoryUrl>
-    <PackageTags>fluent; content-security-policy; csp</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageTags>fluent;content-security-policy;csp</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="LICENSE.txt" Pack="true" PackagePath=""/>
-    <None Include="README.md" Pack="true" PackagePath=""/>
+    <None Include="../README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
