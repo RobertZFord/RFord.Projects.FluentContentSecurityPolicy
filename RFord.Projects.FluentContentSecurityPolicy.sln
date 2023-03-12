@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RFord.Projects.FluentContentSecurityPolicy", "RFord.Projects.FluentContentSecurityPolicy\RFord.Projects.FluentContentSecurityPolicy.csproj", "{7622EC57-088A-49E3-89FE-BBCE6723CE5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RFord.Projects.FluentContentSecurityPolicy.Tests", "RFord.Projects.FluentContentSecurityPolicy.Tests\RFord.Projects.FluentContentSecurityPolicy.Tests.csproj", "{CAB3B288-8905-4016-99A2-074ACBE93E14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34CABEF5-FF6B-442B-A2F1-1AA4ED80E7FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7622EC57-088A-49E3-89FE-BBCE6723CE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7622EC57-088A-49E3-89FE-BBCE6723CE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7622EC57-088A-49E3-89FE-BBCE6723CE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7622EC57-088A-49E3-89FE-BBCE6723CE5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB3B288-8905-4016-99A2-074ACBE93E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB3B288-8905-4016-99A2-074ACBE93E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB3B288-8905-4016-99A2-074ACBE93E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB3B288-8905-4016-99A2-074ACBE93E14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7668405-9EEB-4B49-997C-6234B42930E6}
+	EndGlobalSection
+EndGlobal
