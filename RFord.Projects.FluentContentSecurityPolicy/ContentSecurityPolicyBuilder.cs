@@ -27,7 +27,8 @@ namespace RFord.Projects.FluentContentSecurityPolicy
     /// REF: https://www.rfc-editor.org/rfc/rfc3492
     /// </remarks>
     public class ContentSecurityPolicyBuilder
-        : ITransitionToDirectiveContext
+        : IContentSecurityPolicy
+        , ITransitionToDirectiveContext
         , ILocationSpecificAllowMethods
         , IInitialSourceSpecification
         , ISourceSpecificationContext
@@ -78,7 +79,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy
             return new ContentSecurityPolicyBuilder();
         }
 
-        public string Build()
+        public string Evaluate()
         {
             static string processDictionaryEntry(DictionaryEntry entry)
             {
@@ -232,5 +233,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy
             _currentDirective = typeof(BaseUriPolicy);
             return this;
         }
+
+        public IContentSecurityPolicy Build() => this;
     }
 }

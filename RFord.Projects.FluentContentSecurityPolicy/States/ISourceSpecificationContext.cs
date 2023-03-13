@@ -6,9 +6,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy.States
         : ITransitionToDirectiveContext
         , IInitialSourceSpecification
     {
-        /// <summary>
-        /// Build the resultant Content-Security-Policy string based on the current configuration.
-        /// </summary>
-        string Build();
+        IContentSecurityPolicy Build();
+        string Evaluate();
     }
 }
