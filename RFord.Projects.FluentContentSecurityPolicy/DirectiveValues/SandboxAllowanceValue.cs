@@ -4,16 +4,18 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
 {
     internal class SandboxAllowanceValue : DirectiveValueBase
     {
-        private readonly SandboxPermissions _allowance;
+        private readonly string _final;
+
+        internal override string Evaluate() => _final;
 
         internal SandboxAllowanceValue(SandboxPermissions allowance)
         {
-            _allowance = allowance;
+            _final = PreProcess(allowance);
         }
 
-        internal override string Evaluate()
+        private string PreProcess(SandboxPermissions allowance)
         {
-            string keywordString = _allowance switch
+            string keywordString = allowance switch
             {
                 SandboxPermissions.Downloads => "allow-downloads",
                 SandboxPermissions.DownloadsWithoutUserActivation => "allow-downloads-without-user-activation",
@@ -30,7 +32,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
                 SandboxPermissions.TopNavigation => "allow-top-navigation",
                 SandboxPermissions.TopNavigationByUserActivation => "allow-top-navigation-by-user-activation",
                 SandboxPermissions.TopNavigationToCustomProtocols => "allow-top-navigation-to-custom-protocols",
-                _ => throw new ArgumentOutOfRangeException(paramName: nameof(_allowance))
+                _ => throw new ArgumentOutOfRangeException(paramName: nameof(allowance))
             };
             return keywordString;
         }

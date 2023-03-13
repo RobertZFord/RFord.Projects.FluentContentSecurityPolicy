@@ -4,17 +4,19 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
 {
     internal class FetchKeywordValue : DirectiveValueBase
     {
-        private readonly SourceKeyword _keyword;
+        private readonly string _final;
+
+        internal override string Evaluate() => _final;
 
         internal FetchKeywordValue(SourceKeyword keyword)
         {
-            _keyword = keyword;
+            _final = PreProcess(keyword);
         }
 
-        internal override string Evaluate()
+        private string PreProcess(SourceKeyword keyword)
         {
             // https://www.w3.org/TR/CSP3/#framework-directive-source-list
-            string keywordString = _keyword switch
+            string _eval = keyword switch
             {
                 SourceKeyword.Self => "'self'",
                 SourceKeyword.UnsafeInline => "'unsafe-inline'",
@@ -23,9 +25,9 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
                 SourceKeyword.UnsafeHashes => "'unsafe-hashes'",
                 SourceKeyword.UnsafeAllowRedirects => "'unsafe-allow-redirects'",
                 SourceKeyword.WasmUnsafeEval => "'wasm-unsafe-eval'",
-                _ => throw new ArgumentOutOfRangeException(paramName: nameof(_keyword))
+                _ => throw new ArgumentOutOfRangeException(paramName: nameof(keyword))
             };
-            return keywordString;
+            return _eval;
         }
     }
 }
