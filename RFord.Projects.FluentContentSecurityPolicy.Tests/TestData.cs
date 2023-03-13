@@ -85,7 +85,9 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
             /*
             default-src 'self' https://*.example.com:12/path/to/file.js https://*.xn--tdaaaaaa.com.de:12/path/to/file.js https://*.xn--hxajbheg2az3al.xn--jxalpdlp:12/path/to/file.js
             media-src 'nonce-vu++7w=='
+            font-src 'sha384-jRRG54fT3OVKWYtyEDmHoeL/Dl0ZMP0AVXUd72C9pSDQQy78Erw5n4nRkVaZsn9o'
             base-uri 'self' 'sha256-jzgBGA4UWFFmpOBq0JpdsySukE1FrEN5bUpoK8Z29fY='
+            worker-src 'sha512-UBNdmiHnX8D5kMYOEAyZEJnM437eWylYaei68WvLN00+bXos8Kq6vtDphFIYvD7THNBYAIKjICzOGIFpHgTtZQ=='
             sandbox allow-downloads allow-same-origin allow-pointer-lock
             img-src example.com 'self'
             form-action 'self'
@@ -110,10 +112,20 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
                             .AllowNonce(nonceRetrievalFunction)
 
                             .AndFor()
+                            .FetchDirectives()
+                            .OfPolicy<FontPolicy>()
+                            .AllowHash(SriHash.Sha384, "jRRG54fT3OVKWYtyEDmHoeL/Dl0ZMP0AVXUd72C9pSDQQy78Erw5n4nRkVaZsn9o")
+
+                            .AndFor()
                             .DocumentDirectives()
                             .ConfigureBaseUri()
                             .AllowSelf()
                             .AllowHashOf(SriHash.Sha256, "doSubmit()")
+
+                            .AndFor()
+                            .FetchDirectives()
+                            .OfPolicy<WorkerPolicy>()
+                            .AllowHashOf(SriHash.Sha512, () => "testValue")
 
                             .AndFor()
                             .DocumentDirectives()
@@ -194,7 +206,16 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
                     (
                         "navigate-to",
                         new[] { "'self'" }
+                    ),
+                    (
+                        "worker-src",
+                        new[] { "'sha512-UBNdmiHnX8D5kMYOEAyZEJnM437eWylYaei68WvLN00+bXos8Kq6vtDphFIYvD7THNBYAIKjICzOGIFpHgTtZQ=='" }
+                    ),
+                    (
+                        "font-src",
+                        new[] { "'sha384-jRRG54fT3OVKWYtyEDmHoeL/Dl0ZMP0AVXUd72C9pSDQQy78Erw5n4nRkVaZsn9o'" }
                     )
+
                 )
             );
         }
