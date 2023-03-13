@@ -177,6 +177,13 @@ namespace RFord.Projects.FluentContentSecurityPolicy
             return this;
         }
 
+        public ISourceSpecificationContext AllowHashOf(SriHash hashAlgorithm, Func<string> dataRetrievalCallback)
+        {
+            LazyHashValue token = new LazyHashValue(hashAlgorithm, dataRetrievalCallback);
+            AddSource(token);
+            return this;
+        }
+
         public IFetchPolicyContext OfPolicy<TPolicy>() where TPolicy : FetchDirectivePolicyBase
         {
             _currentDirective = typeof(TPolicy);

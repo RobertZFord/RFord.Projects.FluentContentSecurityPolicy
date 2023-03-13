@@ -43,5 +43,13 @@ namespace RFord.Projects.FluentContentSecurityPolicy.States
         /// REF: https://www.w3.org/TR/CSP3/#unsafe-hashes-usage
         /// </remarks>
         ISourceSpecificationContext AllowHashOf(SriHash hashAlgorithm, string dataToHash);
+
+        /// <summary>
+        /// Calculate a hash based on the result of the specified callback.  This is deferred until string build-time.
+        /// </summary>
+        /// <param name="hashAlgorithm"></param>
+        /// <param name="dataRetrievalCallback"></param>
+        /// <returns></returns>
+        ISourceSpecificationContext AllowHashOf(SriHash hashAlgorithm, Func<string> dataRetrievalCallback);
     }
 }
