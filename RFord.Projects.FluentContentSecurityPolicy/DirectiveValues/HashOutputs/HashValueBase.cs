@@ -1,4 +1,5 @@
 ﻿using RFord.Projects.FluentContentSecurityPolicy.Enums;
+using System.Security.Cryptography;
 
 namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
 {
@@ -6,12 +7,10 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
     {
         protected readonly SriHash _hashAlgorithm;
         protected readonly string _sriHashValue;
-        protected readonly string _data;
 
-        protected HashValueBase(SriHash hashAlgorithm, string data)
+        protected HashValueBase(SriHash hashAlgorithm)
         {
             _hashAlgorithm = hashAlgorithm;
-            _data = data;
 
             _sriHashValue = _hashAlgorithm switch
             {
@@ -21,5 +20,13 @@ namespace RFord.Projects.FluentContentSecurityPolicy.DirectiveValues
                 _ => throw new ArgumentOutOfRangeException(paramName: nameof(_hashAlgorithm))
             };
         }
+
+        protected HashAlgorithm getAlgorithm(SriHash hashAlgorithm) => hashAlgorithm switch
+        {
+            SriHash.Sha256 => SHA256.Create(),
+            SriHash.Sha384 => SHA384.Create(),
+            SriHash.Sha512 => SHA512.Create(),
+            _ => throw new ArgumentOutOfRangeException(paramName: nameof(hashAlgorithm))
+        };
     }
 }

@@ -1,4 +1,5 @@
 ﻿using RFord.Projects.FluentContentSecurityPolicy.DirectiveValues;
+using RFord.Projects.FluentContentSecurityPolicy.DirectiveValues.HashOutputs;
 using RFord.Projects.FluentContentSecurityPolicy.Enums;
 using RFord.Projects.FluentContentSecurityPolicy.PolicyDirectives;
 using RFord.Projects.FluentContentSecurityPolicy.PolicyDirectives.DocumentDirectives;
