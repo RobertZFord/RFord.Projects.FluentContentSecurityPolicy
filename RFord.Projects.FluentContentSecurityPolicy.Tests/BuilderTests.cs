@@ -5,11 +5,11 @@
         [Theory]
         [ClassData(typeof(TestData))]
         public void EnsureCompleteValues(
-            ContentSecurityPolicyBuilder builder,
+            IContentSecurityPolicy policy,
             IDictionary<string, HashSet<string>> expectedDirectives
         )
         {
-            string resultantString = builder.Build();
+            string resultantString = policy.Evaluate();
 
             string[] directives = resultantString.Split(';').Select(x => x.Trim()).ToArray();
             foreach (string directiveString in directives)

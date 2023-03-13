@@ -1,13 +1,12 @@
 ﻿using RFord.Projects.FluentContentSecurityPolicy.Enums;
 using RFord.Projects.FluentContentSecurityPolicy.PolicyDirectives.FetchDirectives;
-using RFord.Projects.FluentContentSecurityPolicy.States;
 using System.Collections;
 
 namespace RFord.Projects.FluentContentSecurityPolicy.Tests
 {
     public class TestData : IEnumerable<object[]>
     {
-        private object[] createTestEntry(ISourceSpecificationContext builder, IDictionary<string, HashSet<string>> expectedDirectives) => new object[] { builder, expectedDirectives };
+        private object[] createTestEntry(IContentSecurityPolicy policy, IDictionary<string, HashSet<string>> expectedDirectives) => new object[] { policy, expectedDirectives };
 
         private IDictionary<string, HashSet<string>> createExpectedDirectives(params (string, string[])[] values)
             => values.ToDictionary(
@@ -26,9 +25,10 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
         {
             // default-src 'self'
             yield return createTestEntry(
-                builder: ContentSecurityPolicyBuilder
+                policy: ContentSecurityPolicyBuilder
                             .BuildDefaultFetchPolicy()
-                            .AllowSelf(),
+                            .AllowSelf()
+                            .Build(),
                 expectedDirectives: createExpectedDirectives(
                     ("default-src", new[] { "'self'" })
                 )
@@ -36,11 +36,12 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
 
             // default-src 'self' example.com *.example.com
             yield return createTestEntry(
-                builder: ContentSecurityPolicyBuilder
+                policy: ContentSecurityPolicyBuilder
                             .BuildDefaultFetchPolicy()
                             .AllowSelf()
                             .AllowHost("example.com")
-                            .AllowHost("*.example.com"),
+                            .AllowHost("*.example.com")
+                            .Build(),
                 expectedDirectives: createExpectedDirectives(
                     ("default-src", new[] { "'self'", "example.com", "*.example.com" })
                 )
@@ -53,7 +54,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
             script-src userscripts.example.com
             */
             yield return createTestEntry(
-                builder: ContentSecurityPolicyBuilder
+                policy: ContentSecurityPolicyBuilder
                             .BuildDefaultFetchPolicy()
                             .AllowSelf()
 
@@ -71,7 +72,8 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
                             .AndFor()
                             .FetchDirectives()
                             .OfPolicy<ScriptPolicy>()
-                            .AllowHost("userscripts.example.com"),
+                            .AllowHost("userscripts.example.com")
+                            .Build(),
                 expectedDirectives: createExpectedDirectives(
                     ("default-src", new[] { "'self'" }),
                     ("img-src", new[] { "*" }),
@@ -91,7 +93,7 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
             navigate-to 'self'
             */
             yield return createTestEntry(
-                builder: ContentSecurityPolicyBuilder
+                policy: ContentSecurityPolicyBuilder
                             .BuildDefaultFetchPolicy()
                             .AllowSelf()
                             // test URL from https://www.w3.org/TR/CSP3/#framework-directive-source-list
@@ -158,7 +160,8 @@ namespace RFord.Projects.FluentContentSecurityPolicy.Tests
                             .AndFor()
                             .FetchDirectives()
                             .OfPolicy<ImagePolicy>()
-                            .AllowSelf(),
+                            .AllowSelf()
+                            .Build(),
                 expectedDirectives: createExpectedDirectives(
                     (
                         "default-src",
